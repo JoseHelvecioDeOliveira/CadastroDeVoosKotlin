@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.activity.FormularioVooActivity">
+
+        <EditText
+            android:id="@+id/activity_formulario_passageiro_nome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:hint="Nome"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/activity_formulario_passageiro_origem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Qual a sua Origem"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="@id/activity_formulario_passageiro_nome"
+            app:layout_constraintStart_toStartOf="@id/activity_formulario_passageiro_nome"
+            app:layout_constraintTop_toBottomOf="@id/activity_formulario_passageiro_nome" />
+
+        <EditText
+            android:id="@+id/activity_formulario_passageiro_destino"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Qual o seu destino"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="@id/activity_formulario_passageiro_origem"
+            app:layout_constraintStart_toStartOf="@id/activity_formulario_passageiro_origem"
+            app:layout_constraintTop_toBottomOf="@id/activity_formulario_passageiro_origem" />
+
+        <EditText
+            android:id="@+id/activity_formulario_passageiro_dataIda"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Data de Ida "
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="@id/activity_formulario_passageiro_destino"
+            app:layout_constraintStart_toStartOf="@id/activity_formulario_passageiro_destino"
+            app:layout_constraintTop_toBottomOf="@id/activity_formulario_passageiro_destino" />
+
+        <EditText
+            android:id="@+id/activity_formulario_passageiro_dataVolta"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Data da volta"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="@id/activity_formulario_passageiro_dataIda"
+            app:layout_constraintStart_toStartOf="@id/activity_formulario_passageiro_dataIda"
+            app:layout_constraintTop_toBottomOf="@id/activity_formulario_passageiro_dataIda" />
+
+
+        <EditText
+            android:id="@+id/activity_formulario_passageiro_capacidade"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Capacidade do Avião"
+            android:inputType="numberDecimal"
+            app:layout_constraintEnd_toEndOf="@id/activity_formulario_passageiro_dataVolta"
+            app:layout_constraintStart_toStartOf="@id/activity_formulario_passageiro_dataVolta"
+            app:layout_constraintTop_toBottomOf="@id/activity_formulario_passageiro_dataVolta" />
+
+        <Button android:id="@+id/activity_formulario_passageiro_botao_salvar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="Salvar"
+            app:layout_constraintVertical_bias="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activity_formulario_passageiro_capacidade" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
