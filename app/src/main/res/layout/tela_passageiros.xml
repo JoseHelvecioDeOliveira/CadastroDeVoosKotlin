@@ -47,8 +47,6 @@
         android:scaleType="fitEnd"
         android:scrollbarThumbHorizontal="@android:drawable/ic_menu_save"
         android:scrollbarTrackHorizontal="@android:drawable/ic_menu_save"
-
-        android:srcCompact="@drawable/ic_menu_save"
         android:visibility="visible"
         app:layout_constraintBaseline_toBottomOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName"

@@ -1,36 +1,105 @@
 package br.com.alura.orgs.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import br.com.alura.orgs.R
-import br.com.alura.orgs.dao.PassageirosDao
-import br.com.alura.orgs.dao.VooDao
-import br.com.alura.orgs.model.Passageiro
+import br.com.alura.orgs.application.BaseApplication
 import br.com.alura.orgs.model.Voo
-import java.math.BigDecimal
 
 class FormularioVooActivity :
     AppCompatActivity(R.layout.activity_formulario_voo) {
 
+    lateinit var myApp: BaseApplication
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        myApp = application as BaseApplication
         configuraBotaoSalvar()
+        configuraBotaoAdicionarTripulante()
+        configuraBotaoAdicionarPassageiro()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val textViewTripulante = findViewById<TextView>(R.id.text_view_quantidade_tripulantes)
+        val textViewPassageiro = findViewById<TextView>(R.id.text_view_quantidade_passageiro)
+        val textQuantidadeTripulante =
+            "Tripulante: " + myApp.tripulanteDao.buscaTodos().size.toString()
+        val textQuantidadePassageiro =
+            "Passageiro: " + myApp.passageiroDao.buscaTodos().size.toString()
+        textViewTripulante.text = textQuantidadeTripulante
+        textViewPassageiro.text = textQuantidadePassageiro
+       configuraFormulario()
+
+    }
+
+    fun configuraFormulario() {
+        val formularioObj = myApp.formularioDao.buscaFormulario()
+
+        val campoOrigem = findViewById<EditText>(R.id.activity_formulario_passageiro_origem)
+        campoOrigem.setText(formularioObj.origem)
+
+        val campoDestino = findViewById<EditText>(R.id.activity_formulario_passageiro_destino)
+        campoDestino.setText(formularioObj.destino)
+
+        val campoDataIda = findViewById<EditText>(R.id.activity_formulario_passageiro_dataIda)
+        campoDataIda.setText(formularioObj.dataIda)
+
+        val campoDataVolta = findViewById<EditText>(R.id.activity_formulario_passageiro_dataVolta)
+        campoDataVolta.setText(formularioObj.dataVolta)
+
+        val campoCapacidade = findViewById<EditText>(R.id.activity_formulario_passageiro_capacidade)
+        campoCapacidade.setText(formularioObj.capacidade.toString())
     }
 
     private fun configuraBotaoSalvar() {
-        val botaoSalvar = findViewById<Button>(R.id.activity_formulario_passageiro_botao_salvar)
+        val botaoSalvar = findViewById<Button>(R.id.activity_formulario_voo_botao_salvar)
         botaoSalvar.setOnClickListener {
-            val vooNovo = criaVoo()
-            VooDao.adiciona(vooNovo)
-            finish()
+            criaVoo()
+            val vooNovo = myApp.formularioDao.buscaFormulario()
+            myApp.vooDao.adiciona(vooNovo)
+            vaiParaListaVoosActivity()
         }
     }
 
-    private fun criaVoo(): Voo {
-        val campoNome = findViewById<EditText>(R.id.activity_formulario_passageiro_nome)
-        val nome = campoNome.text.toString()
+    private fun configuraBotaoAdicionarTripulante() {
+        val botaoAdicionarTripulante =
+            findViewById<Button>(R.id.activity_formulario_tripulante_adicionar)
+        botaoAdicionarTripulante.setOnClickListener {
+            criaVoo()
+            vaiParaFormularioTripulanteActivity()
+        }
+    }
+
+    private fun configuraBotaoAdicionarPassageiro() {
+        val botaoAdicionarPassageiro =
+            findViewById<Button>(R.id.activity_formulario_passageiro_adicionar)
+        botaoAdicionarPassageiro.setOnClickListener {
+            criaVoo()
+            vaiParaFormularioPassageirosActivity()
+        }
+    }
+
+    private fun vaiParaFormularioTripulanteActivity() {
+        val intent = Intent(this, FormularioTripulanteActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun vaiParaFormularioPassageirosActivity() {
+        val intent = Intent(this, FormularioPassageiroActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun vaiParaListaVoosActivity() {
+        val intent = Intent(this, ListaVoosActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun criaVoo() {
 
         val campoOrigem = findViewById<EditText>(R.id.activity_formulario_passageiro_origem)
         val origem = campoOrigem.text.toString()
@@ -47,16 +116,26 @@ class FormularioVooActivity :
         val campoCapacidade = findViewById<EditText>(R.id.activity_formulario_passageiro_capacidade)
         val capacidade = campoCapacidade.text.toString().toInt()
 
-        return Voo(
+        val textoAeroportos = "$origem-$destino"
+
+        val autorizado = true
+        val textoAutorizado = if (autorizado) {
+            "Voo autorizado"
+        } else "Voo não autorizado"
+
+        val voo = Voo(
             origem = origem,
             destino = destino,
-            dataIda= dataIda,
-            dataVolta= dataVolta,
+            dataIda = dataIda,
+            dataVolta = dataVolta,
             capacidade = capacidade,
-            passageiros = listOf(),
-            tripulacao = listOf(),
-            autorizado = true
+            passageiros = myApp.passageiroDao.buscaTodos(),
+            tripulacao = myApp.tripulanteDao.buscaTodos(),
+            autorizado = autorizado,
+            textoAeroportos = textoAeroportos,
+            textoAutorizado = textoAutorizado
         )
+        myApp.formularioDao.adiciona(voo)
     }
 
 }

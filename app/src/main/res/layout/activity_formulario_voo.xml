@@ -68,21 +68,63 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="Capacidade do Avião"
-            android:inputType="numberDecimal"
             app:layout_constraintEnd_toEndOf="@id/activity_formulario_passageiro_dataVolta"
             app:layout_constraintStart_toStartOf="@id/activity_formulario_passageiro_dataVolta"
             app:layout_constraintTop_toBottomOf="@id/activity_formulario_passageiro_dataVolta" />
 
-        <Button android:id="@+id/activity_formulario_passageiro_botao_salvar"
+        <TextView
+            android:id="@+id/text_view_quantidade_tripulantes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            app:layout_constraintEnd_toEndOf="@id/activity_formulario_passageiro_capacidade"
+            app:layout_constraintStart_toStartOf="@id/activity_formulario_passageiro_dataVolta"
+            app:layout_constraintTop_toBottomOf="@id/activity_formulario_passageiro_capacidade"
+            app:layout_constraintEnd_toStartOf="@+id/text_view_quantidade_passageiro"/>
+
+        <TextView
+            android:id="@+id/text_view_quantidade_passageiro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            app:layout_constraintEnd_toEndOf="@id/activity_formulario_passageiro_capacidade"
+            app:layout_constraintStart_toStartOf="@id/activity_formulario_passageiro_dataVolta"
+            app:layout_constraintTop_toBottomOf="@id/activity_formulario_passageiro_capacidade" />
+
+        <Button
+            android:id="@+id/activity_formulario_tripulante_adicionar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:minHeight="48dp"
+            android:text="Tripulante"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_quantidade_passageiro" />
+
+        <Button
+            android:id="@+id/activity_formulario_passageiro_adicionar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:minHeight="48dp"
+            android:text="Passageiro"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activity_formulario_tripulante_adicionar" />
+
+        <Button
+            android:id="@+id/activity_formulario_voo_botao_salvar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:minHeight="48dp"
             android:text="Salvar"
-            app:layout_constraintVertical_bias="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_formulario_passageiro_capacidade" />
+            app:layout_constraintTop_toBottomOf="@+id/activity_formulario_passageiro_adicionar"
+            app:layout_constraintVertical_bias="1" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
